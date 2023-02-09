@@ -6,6 +6,7 @@ A project made for recruitment process purposses
 
 - slider
 - fetching data from api with cacheing
+- fully responsive
 
 ## Commands
 
