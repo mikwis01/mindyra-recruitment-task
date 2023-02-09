@@ -14,11 +14,17 @@ export const useUserData = () => {
 		setSliderIndex((prev) => (prev === 0 ? users.length - 1 : prev - 1))
 	}
 
-	const { data, isLoading } = useQuery(['getUser', users[sliderIndex]], () =>
-		getUser(users[sliderIndex])
+	const { data, isLoading, isSuccess, error } = useQuery(
+		['getUser', users[sliderIndex]],
+		() => getUser(users[sliderIndex])
 	)
 
-	if (data.avatar_url) return [data, isLoading, handleNext, handlePrevious]
-
-	throw new Error('Wrong data received')
+	return [
+		data,
+		isLoading,
+		isSuccess,
+		error,
+		handleNext,
+		handlePrevious
+	] as const
 }

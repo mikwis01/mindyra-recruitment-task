@@ -9,19 +9,12 @@ export const animalApi = axios.create({
 	}
 })
 
-const checkError = (textStatus: string, numberStatus: number) => {
-	if (textStatus !== 'OK') {
-		if (numberStatus === 400) throw new Error('Eror 400 - Bad request')
-		if (numberStatus === 404) throw new Error('Eror 404 - Not found')
-		if (numberStatus === 500)
-			throw new Error('Eror 500 - Internal server error')
-	}
-}
-
 export const getUser = async (username: string) => {
-	const response = await animalApi.get(`/${username}`)
+	try {
+		const response = await animalApi.get(`/${username}`)
 
-	checkError(response.statusText, response.status)
-
-	return response.data
+		return response.data
+	} catch (error) {
+		throw new Error("A problem with fetching users' data occurred!")
+	}
 }
